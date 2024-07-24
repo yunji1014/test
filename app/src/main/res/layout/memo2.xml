@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@color/material_dynamic_primary95" />
 
-    <Button
+    <android.widget.Button
         android:id="@+id/button3"
         android:layout_width="155dp"
         android:layout_height="40dp"
@@ -25,12 +25,13 @@
         android:layout_marginEnd="5dp"
         android:background="#EBEEF6"
         android:contentDescription="이 버튼은 시작날짜 버튼..."
+        android:text="Start at:"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.478"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <android.widget.Button
         android:id="@+id/button13"
         android:layout_width="155dp"
         android:layout_height="40dp"
@@ -39,6 +40,7 @@
         android:layout_marginEnd="5dp"
         android:background="#EBEEF6"
         android:contentDescription="이 버튼은 시작날짜 버튼..."
+        android:text="End at:"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.478"
         app:layout_constraintStart_toStartOf="parent"
@@ -67,36 +69,6 @@
         android:text="지은이 :"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.531"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="148dp"
-        android:layout_height="23dp"
-        android:layout_marginStart="160dp"
-        android:layout_marginTop="88dp"
-        android:layout_marginEnd="7dp"
-        android:text="Start at:"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.635"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView11"
-        android:layout_width="148dp"
-        android:layout_height="23dp"
-        android:layout_marginStart="160dp"
-        android:layout_marginTop="140dp"
-        android:layout_marginEnd="7dp"
-        android:text="End at:"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.635"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
