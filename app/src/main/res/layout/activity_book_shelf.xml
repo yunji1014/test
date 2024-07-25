@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".BookShelf">
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tabIndicatorFullWidth="true"
+        app:tabIndicatorColor="@color/green_500"
+        app:layout_constraintVertical_bias="0.002"
+        app:tabTextColor="@color/blue_200"
+        app:tabSelectedTextColor="@color/green_500">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/reading_tab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/reading" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/complete_tab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/complete" />
+
+    </com.google.android.material.tabs.TabLayout>
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bookshelf"
+        android:orientation="horizontal"
+        android:columnCount="3" >
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="75dp"
+            android:layout_height="95dp"
+            android:layout_marginLeft="45dp"
+            android:layout_marginTop="22dp"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/book1" />
+
+        <ImageView
+            android:layout_width="75dp"
+            android:layout_height="95dp"
+            android:layout_marginLeft="45dp"
+            android:layout_marginTop="22dp"
+            android:scaleType="fitXY" />
+
+        <ImageView
+            android:layout_width="75dp"
+            android:layout_height="95dp"
+            android:layout_marginLeft="45dp"
+            android:layout_marginTop="22dp"
+            android:scaleType="fitXY" />
+
+        <ImageView
+            android:layout_width="75dp"
+            android:layout_height="95dp"
+            android:layout_marginLeft="45dp"
+            android:layout_marginTop="50dp"
+            android:scaleType="fitXY" />
+
+        <ImageView
+            android:layout_width="75dp"
+            android:layout_height="95dp"
+            android:layout_marginLeft="45dp"
+            android:layout_marginTop="50dp"
+            android:scaleType="fitXY" />
+
+        <ImageView
+            android:layout_width="75dp"
+            android:layout_height="95dp"
+            android:layout_marginLeft="45dp"
+            android:layout_marginTop="50dp"
+            android:scaleType="fitXY" />
+
+        <ImageView
+            android:layout_width="75dp"
+            android:layout_height="95dp"
+            android:layout_marginLeft="45dp"
+            android:layout_marginTop="50dp"
+            android:scaleType="fitXY" />
+    </GridLayout>
+
+</LinearLayout>
