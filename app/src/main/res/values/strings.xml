@@ -1,7 +1,12 @@
 <resources>
     <string name="app_name">guru_app_</string>
+
+    <string name="reading">읽는 중</string>
+    <string name="complete">완독</string>
+    <string name="forgot"><u>Forgot password?</u></string>
     <string name="title_activity_bottom_navigation_menu">bottom_navigation_menu</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+
 </resources>
