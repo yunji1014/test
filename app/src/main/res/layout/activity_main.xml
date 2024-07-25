@@ -5,9 +5,9 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="30dp"
-    android:layout_marginTop="50dp"
-    android:layout_marginRight="30dp"
+    android:layout_marginTop="60dp"
+    android:layout_marginLeft="35dp"
+    android:layout_marginRight="35dp"
     android:backgroundTint="@color/blue_500"
     android:orientation="vertical"
     tools:context=".MainActivity">
@@ -64,14 +64,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <Button
+        <android.widget.Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:background="@drawable/button_outline"
             android:backgroundTint="@color/blue_500"
             android:text="Login"
-            android:textSize="18dp"></Button>
+            android:textColor="@color/white"
+            android:textSize="18dp"></android.widget.Button>
     </LinearLayout>
 
     <LinearLayout
@@ -84,7 +85,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Forgot password?"></TextView>
+            android:text="@string/forgot"
+            android:textSize="15dp"></TextView>
 
         <TextView
             android:id="@+id/signup"
@@ -92,6 +94,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="right"
-            android:text="Sign Up"></TextView>
+            android:text="Sign Up"
+            android:textSize="15dp"></TextView>
     </LinearLayout>
 </LinearLayout>

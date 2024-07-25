@@ -28,7 +28,6 @@ class MainActivity : AppCompatActivity() {
         pw_find = findViewById(R.id.pw_find)
         signup = findViewById(R.id.signup)
 
-        pw_find.paintFlags = Paint.UNDERLINE_TEXT_FLAG
         signup.setOnClickListener{
             val intent = Intent(this, BookShelf::class.java)
             startActivity(intent)

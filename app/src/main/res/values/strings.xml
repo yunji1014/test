@@ -2,4 +2,5 @@
     <string name="app_name">guru_app_</string>
     <string name="reading">읽는 중</string>
     <string name="complete">완독</string>
+    <string name="forgot"><u>Forgot password?</u></string>
 </resources>
