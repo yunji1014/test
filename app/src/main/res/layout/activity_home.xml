@@ -33,8 +33,8 @@
             android:id="@+id/mainbookScroll"
             android:layout_width="908dp"
             android:layout_height="250dp"
-            android:background="@color/found_middle"
-            android:backgroundTint="@color/found_middle">
+            android:background="@color/blue_300"
+            android:backgroundTint="@color/blue_300">
 
             <TextView
                 android:id="@+id/textView"

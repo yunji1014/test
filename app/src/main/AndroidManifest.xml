@@ -13,9 +13,11 @@
         android:theme="@style/Theme.Guru_app_"
         tools:targetApi="31" >
         <activity
-            android:name=".bottom_navigation_menu"
-            android:exported="false"
-            android:label="@string/title_activity_bottom_navigation_menu" />
+            android:name=".BookShelf"
+            android:exported="false" />
+        <activity
+            android:name=".SearchActivity"
+            android:exported="false" />
         <activity
             android:name=".MyPageActivity"
             android:exported="false" />
