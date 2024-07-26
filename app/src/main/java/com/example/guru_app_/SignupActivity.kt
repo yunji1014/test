@@ -17,7 +17,7 @@ class SignupActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_signup)
+        setContentView(R.layout.activity_sign_up)
 
         // id가 signin인 버튼을 찾습니다.
         back = findViewById<TextView>(R.id.back)

@@ -9,6 +9,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
 class SignUp : AppCompatActivity() {
+    /*
     lateinit var text_back: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,4 +29,5 @@ class SignUp : AppCompatActivity() {
         }
 
     }
+         */
 }
