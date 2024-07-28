@@ -13,8 +13,8 @@
         android:theme="@style/Theme.Guru_app_"
         tools:targetApi="31" >
         <activity
-            android:name=".BookShelf"
-            android:exported="false" />
+            android:name=".BookShelfActivity"
+            android:exported="true" />
         <activity
             android:name=".SearchActivity"
             android:exported="false" />
@@ -40,5 +40,5 @@
             </intent-filter>
         </activity>
     </application>
-
+    <uses-permission android:name="android.permission.INTERNET"/>
 </manifest>

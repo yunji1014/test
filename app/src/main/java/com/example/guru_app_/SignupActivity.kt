@@ -11,7 +11,7 @@ import androidx.core.view.WindowInsetsCompat
 
 class SignupActivity : AppCompatActivity() {
     lateinit var back: TextView
-    lateinit var signupbutton: Button
+    lateinit var signupbtn: Button
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,7 +21,7 @@ class SignupActivity : AppCompatActivity() {
 
         // id가 signin인 버튼을 찾습니다.
         back = findViewById<TextView>(R.id.back)
-        signupbutton = findViewById<Button>(R.id.signupbutton)
+        signupbtn = findViewById<Button>(R.id.signupbutton)
 
         // 버튼 클릭 리스너를 설정합니다.
         back.setOnClickListener {
@@ -31,7 +31,7 @@ class SignupActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        signupbutton.setOnClickListener{
+        signupbtn.setOnClickListener{
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
