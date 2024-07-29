@@ -6,13 +6,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".SignUp">
+    tools:context=".SignUpActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="30dp"
         android:orientation="horizontal">
 
         <TextView
@@ -60,7 +60,7 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/signName"
+                android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_marginBottom="20dp"
@@ -79,15 +79,30 @@
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/signID"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_marginBottom="20dp"
-                android:ems="10"
-                android:hint=" 아이디"
-                android:inputType="text"
-                android:text="" />
+            <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+                <EditText
+                    android:id="@+id/user_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginBottom="20dp"
+                    android:ems="10"
+                    android:hint=" 아이디"
+                    android:inputType="text"
+                    android:text="" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/idcheckbutton"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="중복확인"
+                    android:background="@drawable/button_outline"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/signBirthtext"
@@ -105,7 +120,7 @@
                 android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/signBirth"
+                    android:id="@+id/birth"
                     android:layout_width="100dp"
                     android:layout_height="40dp"
                     android:layout_marginBottom="20dp"
@@ -146,7 +161,7 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/signPW"
+                android:id="@+id/password"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_marginBottom="20dp"
@@ -171,7 +186,7 @@
                 android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/signPW2"
+                    android:id="@+id/password2"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:layout_marginBottom="20dp"
@@ -179,16 +194,6 @@
                     android:hint=" 비밀번호 다시 입력"
                     android:inputType="textPassword"
                     android:text="" />
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/pwcheckbutton"
-                    android:layout_width="85dp"
-                    android:layout_height="30dp"
-                    android:layout_marginLeft="10dp"
-                    android:text="확인"
-                    android:background="@drawable/button_outline"
-                    android:textColor="@color/white"
-                    android:textSize="16sp" />
             </LinearLayout>
 
             <TextView
@@ -202,7 +207,7 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/signmail"
+                android:id="@+id/mail"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_marginBottom="20dp"
@@ -213,9 +218,9 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/signupbutton"
-                android:layout_width="120dp"
-                android:layout_height="35dp"
-                android:layout_marginTop="20dp"
+                android:layout_width="130dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
                 android:layout_gravity="center"
                 android:background="@drawable/button_outline"
                 android:text="회원가입"
