@@ -27,7 +27,7 @@
                 android:id="@+id/book_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="제목"
+                android:text=""
                 android:layout_gravity="center"/>
         </LinearLayout>
 
@@ -36,7 +36,7 @@
             android:layout_width="75dp"
             android:layout_height="95dp"
             android:layout_marginLeft="45dp"
-            android:layout_marginTop="35dp"
+            android:layout_marginTop="30dp"
             android:scaleType="fitXY" />
 
         <ImageView
@@ -45,27 +45,6 @@
             android:layout_height="95dp"
             android:layout_marginLeft="45dp"
             android:layout_marginTop="30dp"
-            android:scaleType="fitXY" />
-
-        <ImageView
-            android:layout_width="75dp"
-            android:layout_height="95dp"
-            android:layout_marginLeft="45dp"
-            android:layout_marginTop="45dp"
-            android:scaleType="fitXY" />
-
-        <ImageView
-            android:layout_width="75dp"
-            android:layout_height="95dp"
-            android:layout_marginLeft="45dp"
-            android:layout_marginTop="45dp"
-            android:scaleType="fitXY" />
-
-        <ImageView
-            android:layout_width="75dp"
-            android:layout_height="95dp"
-            android:layout_marginLeft="45dp"
-            android:layout_marginTop="45dp"
             android:scaleType="fitXY" />
 
         <ImageView

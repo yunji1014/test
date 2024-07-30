@@ -18,7 +18,6 @@ class ReadingFragment : Fragment() {
 //    lateinit var dbManager: DBManager
     lateinit var DB: SQLiteDatabase
     lateinit var layout: GridLayout
-    lateinit var image1: ImageView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
