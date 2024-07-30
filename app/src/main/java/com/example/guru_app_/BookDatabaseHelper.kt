@@ -30,7 +30,7 @@ class BookDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_
                 + "$COLUMN_IMAGE TEXT,"
                 + "$COLUMN_ISBN TEXT,"
                 + "$COLUMN_PUBLISHER TEXT,"
-                + "$COLUMN_CATEGORY TEXT)")
+                + "$COLUMN_CATEGORY TEXT")
         db.execSQL(createTable) // SQL 쿼리 실행
     }
 
