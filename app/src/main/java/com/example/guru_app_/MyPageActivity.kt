@@ -6,7 +6,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Switch
 import androidx.appcompat.app.AppCompatActivity
-/*
+
 import androidx.appcompat.app.AppCompatDelegate
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.charts.PieChart
@@ -16,11 +16,11 @@ import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
- */
+
 
 class MyPageActivity : AppCompatActivity() {
 
-    /*
+
     private lateinit var barChart: BarChart
     private lateinit var pieChart: PieChart
     private lateinit var switchDarkMode: Switch
@@ -109,5 +109,4 @@ class MyPageActivity : AppCompatActivity() {
             }
         }
     }
-     */
 }
