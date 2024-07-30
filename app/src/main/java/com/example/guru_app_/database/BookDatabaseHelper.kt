@@ -36,17 +36,30 @@ class BookDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_
                 FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE CASCADE
             );
         """
+
+        private const val CREATE_STATISTICS_TABLE = """
+            CREATE TABLE IF NOT EXISTS Statistics (
+                user_id TEXT NOT NULL,
+                month TEXT NOT NULL,
+                books_read INTEGER DEFAULT 0,
+                genre_stats TEXT,
+                FOREIGN KEY (user_id) REFERENCES users(user_id),
+                PRIMARY KEY (user_id, month)
+            );
+        """
     }
 
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL(CREATE_BOOKS_TABLE)
         db.execSQL(CREATE_MEMOS_TABLE)
+        db.execSQL(CREATE_STATISTICS_TABLE)
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         // 업그레이드 정책에 따라 필요한 경우에 데이터베이스 테이블 재구성
         db.execSQL("DROP TABLE IF EXISTS memos")
         db.execSQL("DROP TABLE IF EXISTS books")
+        db.execSQL("DROP TABLE IF EXISTS Statistics")
         onCreate(db)
     }
 }
