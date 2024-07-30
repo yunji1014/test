@@ -8,5 +8,6 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="image_desc">책 썸네일 이미지</string>
 
 </resources>
