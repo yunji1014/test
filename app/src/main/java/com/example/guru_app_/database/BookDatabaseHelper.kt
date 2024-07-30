@@ -1,7 +1,10 @@
 package com.example.guru_app_.database
+import android.annotation.SuppressLint
+import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import com.example.guru_app_.Book
 
 class BookDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
@@ -36,6 +39,16 @@ class BookDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_
                 FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE CASCADE
             );
         """
+
+        // books 테이블 컬럼 상수
+        private const val TABLE_BOOKS = "books"
+        private const val COLUMN_TITLE = "title"
+        private const val COLUMN_AUTHOR = "author"
+        private const val COLUMN_IMAGE = "cover_image"
+        private const val COLUMN_ISBN = "isbn"
+        private const val COLUMN_PUBLISHER = "publisher"
+        private const val COLUMN_CATEGORY = "category" // 새로운 컬럼 추가
+
     }
 
     override fun onCreate(db: SQLiteDatabase) {
@@ -49,4 +62,48 @@ class BookDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_
         db.execSQL("DROP TABLE IF EXISTS books")
         onCreate(db)
     }
+
+    // 책 추가 메서드
+    fun addBook(book: Book) {
+        val db = this.writableDatabase
+        val contentValues = ContentValues().apply {
+            put(COLUMN_TITLE, book.title)
+            put(COLUMN_AUTHOR, book.author)
+            put(COLUMN_IMAGE, book.image)
+            put(COLUMN_ISBN, book.isbn)
+            put(COLUMN_PUBLISHER, book.publisher)
+            put(COLUMN_CATEGORY, book.category) // 새로운 컬럼 추가
+        }
+        db.insert(TABLE_BOOKS, null, contentValues)
+        db.close()
+    }
+
+    // 모든 책 데이터 조회 메서드
+    @SuppressLint("Range")
+    fun getAllBooks(): List<Book> {
+        val bookList: MutableList<Book> = ArrayList()
+        val selectQuery = "SELECT * FROM $TABLE_BOOKS"
+        val db = this.readableDatabase
+        val cursor = db.rawQuery(selectQuery, null)
+
+        if (cursor.moveToFirst()) {
+            do {
+                val book = Book(
+                    cursor.getString(cursor.getColumnIndex(COLUMN_TITLE)),
+                    cursor.getString(cursor.getColumnIndex(COLUMN_AUTHOR)),
+                    cursor.getString(cursor.getColumnIndex(COLUMN_IMAGE)),
+                    cursor.getString(cursor.getColumnIndex(COLUMN_ISBN)),
+                    cursor.getString(cursor.getColumnIndex(COLUMN_PUBLISHER)),
+                    cursor.getString(cursor.getColumnIndex(COLUMN_CATEGORY))
+                )
+                bookList.add(book)
+            } while (cursor.moveToNext())
+        }
+        cursor.close()
+        db.close()
+
+        return bookList
+    }
+
+
 }

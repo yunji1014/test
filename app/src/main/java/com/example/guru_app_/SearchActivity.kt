@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.guru_app_.database.BookDatabaseHelper
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.BufferedReader
@@ -136,13 +137,22 @@ class SearchActivity : AppCompatActivity() {
                 for (i in 0 until items.length()) {
                     val item = items.optJSONObject(i)
                     if (item != null) {
+                        val id = item.optInt("id")
                         val title = item.optString("title", "제목 없음")
                         val author = item.optString("author", "저자 없음")
                         val image = item.optString("image", "")
                         val isbn = item.optString("isbn", "ISBN 없음")
                         val publisher = item.optString("publisher", "출판사 없음")
                         val category = getCategoryFromIsbn(isbn)
-                        books.add(Book(title, author, image, isbn, publisher, category))
+
+                        books.add(Book(
+                            title,
+                            author,
+                            image,
+                            isbn,
+                            publisher,
+                            category
+                        ))
                     }
                 }
                 bookAdapter.notifyDataSetChanged()
