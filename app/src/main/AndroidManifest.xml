@@ -18,8 +18,8 @@
             android:name=".TestActivity"
             android:exported="false" />
         <activity
-            android:name=".BookShelf"
-            android:exported="false" />
+            android:name=".BookShelfActivity"
+            android:exported="true" />
         <activity
             android:name=".SearchActivity"
             android:exported="false" />
@@ -46,5 +46,5 @@
             </intent-filter>
         </activity>
     </application>
-
+    <uses-permission android:name="android.permission.INTERNET"/>
 </manifest>
