@@ -13,6 +13,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.guru_app_.database.BookDatabaseHelper
+
 
 class BookAdapter(private val context: Context, private val books: List<Book>, private val dbHelper: BookDatabaseHelper) : RecyclerView.Adapter<BookAdapter.BookViewHolder>() {
 
