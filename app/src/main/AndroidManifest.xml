@@ -21,9 +21,6 @@
             android:name=".BookShelfActivity"
             android:exported="true" />
         <activity
-            android:name=".SearchActivity"
-            android:exported="false" />
-        <activity
             android:name=".MyPageActivity"
             android:exported="false" />
         <activity

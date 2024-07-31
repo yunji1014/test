@@ -1,19 +1,16 @@
 package com.example.guru_app_
 
-import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
-import android.database.sqlite.SQLiteDatabase
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.guru_app_.database.BookDatabaseHelper
+//import com.example.guru_app_.database.BookDatabaseHelper
 
 
 class BookAdapter(private val context: Context, private val books: List<Book>, private val dbHelper: BookDatabaseHelper) : RecyclerView.Adapter<BookAdapter.BookViewHolder>() {
@@ -25,7 +22,6 @@ class BookAdapter(private val context: Context, private val books: List<Book>, p
         val bookAuthor: TextView = view.findViewById(R.id.textAuthor)
         val bookISBN: TextView = view.findViewById(R.id.bookISBN)
         val bookPublisher: TextView = view.findViewById(R.id.bookPublisher)
-        val bookCategory: TextView = view.findViewById(R.id.bookCategory)
         val addBookButton: Button = view.findViewById(R.id.AddBookButton) // AddBookButton 추가
     }
 
@@ -43,7 +39,6 @@ class BookAdapter(private val context: Context, private val books: List<Book>, p
         holder.bookAuthor.text = book.author
         holder.bookISBN.text = "ISBN: ${book.isbn}"
         holder.bookPublisher.text = "출판사: ${book.publisher}"
-        holder.bookCategory.text = "카테고리: ${book.category}"
 
         // 책 이미지가 있을 경우 이미지를 설정
         if (book.image.isNotEmpty()) {
@@ -58,7 +53,7 @@ class BookAdapter(private val context: Context, private val books: List<Book>, p
             dbHelper.addBook(book)  // 책 데이터를 데이터베이스에 저장
 
             // BookShelf 시작하여 책 목록을 표시
-            val intent = Intent(context, BookShelf::class.java)
+            val intent = Intent(context, BookShelfActivity::class.java)
             context.startActivity(intent)
         }
     }
