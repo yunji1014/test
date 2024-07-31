@@ -36,10 +36,10 @@ class DBHelper (context: Context) : SQLiteOpenHelper(context, "LoginDB", null, 1
         return res
     }
 
-    fun checkMailpass(id: String?, password: String?) : Boolean{
+    fun checkMailpass(mail: String?, password: String?) : Boolean{
         val db = this.readableDatabase
         var res = true
-        val cursor = db.rawQuery("Select * from id = ? and password = ?", arrayOf(id, password))
+        val cursor = db.rawQuery("Select * from users where mail = ? and password = ?", arrayOf(mail, password))
         if(cursor.count <= 0) res = false
         return res
     }
