@@ -123,7 +123,7 @@
                 android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/birth"
+                    android:id="@+id/birth1"
                     android:layout_width="100dp"
                     android:layout_height="40dp"
                     android:layout_marginBottom="30dp"
@@ -218,7 +218,7 @@
                 android:layout_marginBottom="30dp"
                 android:ems="11"
                 android:hint=" 이메일"
-                android:inputType="textPersonName"
+                android:inputType="text"
                 android:singleLine="true"
                 android:text="" />
 

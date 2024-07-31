@@ -29,9 +29,17 @@ class DBHelper (context: Context) : SQLiteOpenHelper(context, "LoginDB", null, 1
 
     //id 중복 확인. id가 존재하면 true
     fun checkID(id: String?): Boolean{
-        val db = this.writableDatabase
+        val db = this.readableDatabase
         var res = true
         val cursor = db.rawQuery("Select * from users where id =?", arrayOf(id))
+        if(cursor.count <= 0) res = false
+        return res
+    }
+
+    fun checkMailpass(id: String?, password: String?) : Boolean{
+        val db = this.readableDatabase
+        var res = true
+        val cursor = db.rawQuery("Select * from id = ? and password = ?", arrayOf(id, password))
         if(cursor.count <= 0) res = false
         return res
     }
