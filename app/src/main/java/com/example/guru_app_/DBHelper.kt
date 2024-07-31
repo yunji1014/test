@@ -1,11 +1,13 @@
 package com.example.guru_app_
 
+/*
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
 class DBHelper (context: Context) : SQLiteOpenHelper(context, "LoginDB", null, 1){
+
     override fun onCreate(db: SQLiteDatabase?) {
         db!!.execSQL("create Table users(id TEXT primary key, password TEXT, name TEXT, birth TEXT, mail TEXT)")
     }
@@ -43,4 +45,8 @@ class DBHelper (context: Context) : SQLiteOpenHelper(context, "LoginDB", null, 1
         if(cursor.count <= 0) res = false
         return res
     }
+
+
 }
+
+ */

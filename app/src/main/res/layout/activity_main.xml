@@ -75,7 +75,9 @@
             android:backgroundTint="@color/blue_500"
             android:text="Login"
             android:textColor="@color/white"
-            android:textSize="18dp"></android.widget.Button>
+            android:textSize="18dp">
+
+        </android.widget.Button>
     </LinearLayout>
 
     <LinearLayout
@@ -89,7 +91,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/forgot"
-            android:textSize="15dp"></TextView>
+            android:textSize="15dp">
+
+        </TextView>
 
         <TextView
             android:id="@+id/signup"
@@ -98,6 +102,8 @@
             android:layout_weight="1"
             android:gravity="right"
             android:text="Sign Up"
-            android:textSize="15dp"></TextView>
+            android:textSize="15dp">
+
+        </TextView>
     </LinearLayout>
 </LinearLayout>

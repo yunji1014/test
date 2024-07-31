@@ -14,10 +14,10 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
 class MainActivity : AppCompatActivity() {
-    lateinit var dbHelper: DBHelper
+    //lateinit var dbHelper: DBHelper
     lateinit var mail: EditText
     lateinit var password: EditText
-    lateinit var btnlogin: Button
+    lateinit var Login: Button
     lateinit var findpw: TextView
     lateinit var signup: TextView
 
@@ -32,6 +32,16 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        Login = findViewById<Button>(R.id.Login)
+
+        Login.setOnClickListener{
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
+        }
+        /*
+
+
         dbHelper = DBHelper(this)
 
         mail = findViewById(R.id.login_email)
@@ -70,6 +80,8 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, SignupActivity::class.java)
             startActivity(intent)
         }
+
+         */
 
     }
 }

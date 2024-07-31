@@ -143,7 +143,6 @@ class SearchActivity : AppCompatActivity() {
                         val image = item.optString("image", "")
                         val isbn = item.optString("isbn", "ISBN 없음")
                         val publisher = item.optString("publisher", "출판사 없음")
-                        val category = getCategoryFromIsbn(isbn)
 
                         //음 데이터를 추가하며 이가 제대로 된 데이터 값이 받아와지지
                         //않는 현상 발생. 그러나 오류가 없으려면 데이터 값을 받아와야 함..
@@ -154,8 +153,7 @@ class SearchActivity : AppCompatActivity() {
                             author,
                             image,
                             isbn,
-                            publisher,
-                            category
+                            publisher
                         ))
                     }
                 }
@@ -167,29 +165,6 @@ class SearchActivity : AppCompatActivity() {
         } catch (e: JSONException) {
             e.printStackTrace()
             Toast.makeText(this, "JSON 파싱 중 오류가 발생했습니다: ${e.message}", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    private fun getCategoryFromIsbn(isbn: String): String {
-        return try {
-            //isbn 뒤에서 3번째 숫자.
-            val thirdLastChar = isbn[isbn.length - 3]
-            when (thirdLastChar) {
-                //카테고리 분류
-                '0' -> "총류"
-                '1' -> "철학, 심리학, 윤리학"
-                '2' -> "종교"
-                '3' -> "사회과학"
-                '4' -> "자연과학"
-                '5' -> "기술과학"
-                '6' -> "예술"
-                '7' -> "언어"
-                '8' -> "문학"
-                '9' -> "역사, 지리, 관광"
-                else -> "기타"
-            }
-        } catch (e: Exception) {
-            "기타"
         }
     }
 }

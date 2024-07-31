@@ -109,5 +109,4 @@ class MyPageActivity : AppCompatActivity() {
             }
         }
     }
-     */
 }

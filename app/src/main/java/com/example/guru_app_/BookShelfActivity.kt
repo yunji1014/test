@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.guru_app_.database.BookDatabaseHelper
+//import com.example.guru_app_.database.BookDatabaseHelper
 import com.google.android.material.tabs.TabLayout
 
 class BookShelfActivity : AppCompatActivity() {
