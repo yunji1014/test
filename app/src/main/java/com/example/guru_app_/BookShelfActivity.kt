@@ -5,13 +5,14 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.guru_app_.database.BookDatabaseHelper
 import com.google.android.material.tabs.TabLayout
 
-class BookShelf : AppCompatActivity() {
+class BookShelfActivity : AppCompatActivity() {
     private lateinit var bookImageAdapter: BookImageAdapter
     private lateinit var bookDatabaseHelper: BookDatabaseHelper
 
@@ -41,16 +42,18 @@ class BookShelf : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val tabLayout : TabLayout = findViewById(R.id.tab_layout)
+        val tabLayout: TabLayout = findViewById(R.id.tab_layout)
+        val readingFragment: Fragment = ReadingFragment()
+        val completeFragment: Fragment = ComleteFragment()
 
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
             override fun onTabSelected(tab: TabLayout.Tab){
                 when(tab.position){
                     0 -> {
-
+                        supportFragmentManager.beginTransaction().replace(R.id.main_view, readingFragment).commit()
                     }
                     1 -> {
-
+                        supportFragmentManager.beginTransaction().replace(R.id.main_view, completeFragment).commit()
                     }
                 }
             }

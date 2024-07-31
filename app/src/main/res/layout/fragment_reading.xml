@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ReadingFragment">
+    <GridLayout
+        android:id="@+id/books"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bookshelf"
+        android:columnCount="3"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="45dp"
+            android:layout_marginTop="30dp">
+            <ImageView
+                android:id="@+id/book_cover"
+                android:layout_width="75dp"
+                android:layout_height="95dp"
+                android:scaleType="fitXY"/>
+            <TextView
+                android:id="@+id/book_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:layout_gravity="center"/>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="75dp"
+            android:layout_height="95dp"
+            android:layout_marginLeft="45dp"
+            android:layout_marginTop="30dp"
+            android:scaleType="fitXY" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="75dp"
+            android:layout_height="95dp"
+            android:layout_marginLeft="45dp"
+            android:layout_marginTop="30dp"
+            android:scaleType="fitXY" />
+
+        <ImageView
+            android:layout_width="75dp"
+            android:layout_height="95dp"
+            android:layout_marginLeft="45dp"
+            android:layout_marginTop="45dp"
+            android:scaleType="fitXY" />
+
+    </GridLayout>
+</FrameLayout>
