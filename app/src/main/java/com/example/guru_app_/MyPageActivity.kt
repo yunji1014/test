@@ -17,7 +17,9 @@ import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 
+
 class MyPageActivity : AppCompatActivity() {
+
 
     private lateinit var barChart: BarChart
     private lateinit var pieChart: PieChart
@@ -107,4 +109,5 @@ class MyPageActivity : AppCompatActivity() {
             }
         }
     }
+     */
 }
