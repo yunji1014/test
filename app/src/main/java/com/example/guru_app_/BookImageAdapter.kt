@@ -28,20 +28,17 @@ class BookImageAdapter(private val context: Context, private val books: List<Boo
         val book = books[position] // 현재 위치의 책 객체를 가져옴
 
         // 책 이미지가 비어 있지 않으면 이미지를 로드
-        if (book.image.isNotEmpty()) {
-            Glide.with(holder.bookImageButton.context).load(book.image).into(holder.bookImageButton)
+        if (book.coverImage != null) {
+            Glide.with(holder.bookImage.context).load(book.coverImage).into(holder.bookImage)
         } else {
-            // 기본 이미지 설정 (예: placeholder_image)
-            // holder.bookImageButton.setImageResource(R.drawable.placeholder_image)
+            holder.bookImage.setImageResource(android.R.drawable.ic_menu_gallery)
         }
 
         // 이미지 버튼 클릭 시 동작 설정
-        holder.bookImageButton.setOnClickListener {
-            // Toast 메시지로 해당 책의 status 값을 출력
-            Toast.makeText(context, "Status: ${book.status}", Toast.LENGTH_SHORT).show()
+        holder.addBookButton.setOnClickListener {
+            bookDao.addBook(book)  // 책 데이터를 데이터베이스에 저장
 
-            // HomeActivity로 전환하는 인텐트 생성
-            val intent = Intent(context, HomeActivity::class.java)
+            val intent = Intent(context, BookShelfActivity::class.java)
             context.startActivity(intent)
         }
     }
