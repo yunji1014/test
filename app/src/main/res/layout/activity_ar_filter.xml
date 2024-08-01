@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFF">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- AR 필터 미리보기 텍스트 -->
+            <TextView
+                android:id="@+id/ar_filter_preview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="AR 필터 미리보기"
+                android:textSize="24sp"
+                android:textColor="#196191"
+                android:textStyle="bold" />
+
+            <!-- 이미지와 액자 모양 -->
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_gravity="center">
+
+                <!-- 액자 모양 -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#9BC7EC"
+                    android:padding="8dp" />
+
+                <!-- 이미지 -->
+                <ImageView
+                    android:id="@+id/image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/read_now"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"
+                    android:layout_margin="8dp" />
+            </FrameLayout>
+
+            <!-- AR 필터 사용해보기 텍스트 -->
+            <TextView
+                android:id="@+id/use_ar_filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="📸AR 필터 사용해보기"
+                android:textSize="18sp"
+                android:textColor="#196191" />
+
+            <!-- To Instagram Button -->
+            <Button
+                android:id="@+id/to_instagram"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="To Instagram"
+                android:background="#196191"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>
+

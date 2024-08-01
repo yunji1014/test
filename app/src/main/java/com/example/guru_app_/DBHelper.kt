@@ -1,13 +1,11 @@
 package com.example.guru_app_
 
-/*
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
 class DBHelper (context: Context) : SQLiteOpenHelper(context, "LoginDB", null, 1){
-
     override fun onCreate(db: SQLiteDatabase?) {
         db!!.execSQL("create Table users(id TEXT primary key, password TEXT, name TEXT, birth TEXT, mail TEXT)")
     }
@@ -38,15 +36,11 @@ class DBHelper (context: Context) : SQLiteOpenHelper(context, "LoginDB", null, 1
         return res
     }
 
-    fun checkMailpass(id: String?, password: String?) : Boolean{
+    fun checkMailpass(mail: String?, password: String?) : Boolean{
         val db = this.readableDatabase
         var res = true
-        val cursor = db.rawQuery("Select * from id = ? and password = ?", arrayOf(id, password))
+        val cursor = db.rawQuery("Select * from users where mail = ? and password = ?", arrayOf(mail, password))
         if(cursor.count <= 0) res = false
         return res
     }
-
-
 }
-
- */

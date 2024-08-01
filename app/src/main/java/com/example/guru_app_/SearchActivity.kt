@@ -15,10 +15,11 @@ import org.json.JSONException
 import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.InputStreamReader
-import java.lang.Exception
 import java.net.HttpURLConnection
 import java.net.URL
 import java.net.URLEncoder
+import java.text.SimpleDateFormat
+import java.util.*
 
 class SearchActivity : AppCompatActivity() {
 
@@ -27,22 +28,22 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var bookAdapter: BookAdapter
     private lateinit var search: SearchView
     private val books = mutableListOf<Book>()
-    private lateinit var dbHelper: BookDatabaseHelper // BookDatabaseHelper 추가
+    private lateinit var bookDao: BookDao // BookDao 추가
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
 
-        // BookDatabaseHelper 초기화
-        dbHelper = BookDatabaseHelper(this)
+        // BookDao 초기화
+        bookDao = BookDao(this)
 
         backButton = findViewById(R.id.BackButton)
         search = findViewById(R.id.search)
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        // BookAdapter 초기화 시 Context, books, dbHelper 전달
-        bookAdapter = BookAdapter(this, books, dbHelper)
+        // BookAdapter 초기화 시 Context, books, bookDao 전달
+        bookAdapter = BookAdapter(this, books, bookDao)
         recyclerView.adapter = bookAdapter
 
         backButton.setOnClickListener {
@@ -94,7 +95,6 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun getNaverBookSearch(keyword: String): String {
-        // 네이버 책 검색 API를 호출하는 코드
         val clientID = "qIL4TXtqeLNoiACa14G5"
         val clientSecret = "hPPiIzBqS3"
         val sb = StringBuilder()
@@ -137,25 +137,19 @@ class SearchActivity : AppCompatActivity() {
                 for (i in 0 until items.length()) {
                     val item = items.optJSONObject(i)
                     if (item != null) {
-                        //val id = item.optInt("id")
                         val title = item.optString("title", "제목 없음")
                         val author = item.optString("author", "저자 없음")
                         val image = item.optString("image", "")
                         val isbn = item.optString("isbn", "ISBN 없음")
                         val publisher = item.optString("publisher", "출판사 없음")
-                        val status = item.optString("status", "상태값 없음")
 
-                        //음 데이터를 추가하며 이가 제대로 된 데이터 값이 받아와지지
-                        //않는 현상 발생. 그러나 오류가 없으려면 데이터 값을 받아와야 함..
-                        //먼저 not null값을 가지는 데이터부터 확인 후 초기 status부터 해결
-                        //지금은 status값 "상태없음" 으로 뜸.. 인식안됨 
                         books.add(Book(
-                            title,
-                            author,
-                            image,
-                            isbn,
-                            publisher,
-                            status
+                            title = title,
+                            author = author,
+                            coverImage = image,
+                            isbn = isbn,
+                            publisher = publisher,
+                            // coverImage 필드 추가
                         ))
                     }
                 }
