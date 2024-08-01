@@ -2,10 +2,12 @@ package com.example.guru_app_.database
 
 import android.content.ContentValues
 import android.content.Context
-import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import com.example.guru_app_.BookDatabaseHelper
 import com.example.guru_app_.models.Book
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class BookDao(context: Context) {
     private val dbHelper: SQLiteOpenHelper = BookDatabaseHelper(context)
@@ -18,7 +20,7 @@ class BookDao(context: Context) {
             put("publisher", book.publisher)
             put("isbn", book.isbn)
             put("cover_image", book.coverImage)
-            put("start_date", book.startDate)
+            put("start_date", getCurrentDate()) // 현재 날짜를 start_date에 저장
             put("end_date", book.endDate)
             put("rating", book.rating)
             put("status", book.status)
@@ -51,5 +53,37 @@ class BookDao(context: Context) {
         cursor.close()
         db.close()
         return books
+    }
+
+    fun deleteBook(bookId: Int?) {
+        val db = dbHelper.writableDatabase
+        db.delete("books", "id = ?", arrayOf(bookId.toString()))
+        db.close()
+    }
+
+    private fun getCurrentDate(): String {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val date = Date()
+        return dateFormat.format(date)
+    }
+
+    private fun getNextId(): Int {
+        val db = dbHelper.readableDatabase
+        val cursor = db.rawQuery("SELECT id FROM books ORDER BY id", null)
+        var nextId = 0
+
+        if (cursor.moveToFirst()) {
+            do {
+                val currentId = cursor.getInt(0)
+                if (currentId != nextId) {
+                    break // 빈 ID를 찾음
+                }
+                nextId++
+            } while (cursor.moveToNext())
+        }
+
+        cursor.close()
+        db.close()
+        return nextId
     }
 }

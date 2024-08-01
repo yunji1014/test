@@ -1,18 +1,27 @@
 package com.example.guru_app_
 
+import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.startActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.guru_app_.activities.BookMemoActivity
 import com.example.guru_app_.database.BookDao
 import com.example.guru_app_.models.Book
 
-class BookImageAdapter(private val context: Context, private val books: List<Book>) : RecyclerView.Adapter<BookImageAdapter.BookImageViewHolder>() {
+class BookImageAdapter(private val context: Context, private var books: List<Book>) : RecyclerView.Adapter<BookImageAdapter.BookImageViewHolder>() {
 
     class BookImageViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val bookImageButton: ImageButton = view.findViewById(R.id.bookImageButton)
@@ -33,15 +42,53 @@ class BookImageAdapter(private val context: Context, private val books: List<Boo
             holder.bookImageButton.setImageResource(android.R.drawable.ic_menu_gallery)
         }
 
-        holder.bookImageButton.setOnClickListener {
-            val intent = Intent(context, BookMemoActivity::class.java).apply {
-                putExtra("BOOK_ID", book.id)
+        holder.bookImageButton.apply {
+            setOnClickListener {
+                val context = it.context
+                val bookId = book.id
+                val startDate = book.startDate // book 객체에 startDate가 포함되어 있다고 가정합니다.
+
+                // Toast 메시지로 책의 ID와 start_date를 표시합니다.
+                Toast.makeText(context, "ID: $bookId, Start Date: $startDate", Toast.LENGTH_SHORT).show()
+
+                // 기존의 Intent 코드
+                val intent = Intent(context, BookMemoActivity::class.java).apply {
+                    putExtra("BOOK_ID", bookId)
+                }
+                context.startActivity(intent)
             }
-            context.startActivity(intent)
+
+            setOnLongClickListener {
+                // 경고창 생성
+
+                AlertDialog.Builder(it.context).apply {
+                    setTitle("경고")
+                    setMessage("삭제하시겠습니까?")
+                    setPositiveButton("예") { dialog, which ->
+                        // 삭제 로직을 여기에 추가
+                        val bookDao = BookDao(it.context)
+                        bookDao.deleteBook(book.id)
+
+                        Toast.makeText(it.context, "삭제되었습니다.", Toast.LENGTH_SHORT).show()
+                    }
+                    setNegativeButton("아니오") { dialog, which ->
+                        dialog.dismiss()
+                    }
+                }.show()
+
+                true // Long click 이벤트 처리를 완료했음을 알림
+            }
         }
     }
 
     override fun getItemCount(): Int {
         return books.size
+    }
+
+
+    // 데이터 갱신 메서드 추가
+    fun updateBooks(newBooks: List<Book>) {
+        books = newBooks
+        notifyDataSetChanged()
     }
 }
