@@ -33,10 +33,6 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-
-
-
-
         dbHelper = DBHelper(this)
 
         mail = findViewById(R.id.login_email)
@@ -56,8 +52,8 @@ class MainActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT).show()
             }
             else{
-                val checkmailpass = dbHelper.checkMailpass(mail, pass)
-                if (checkmailpass == true){
+                val check = dbHelper.checkMailpass(mail, pass)
+                if (check == true){
                     Toast.makeText(this@MainActivity,
                         "로그인 되었습니다.", Toast.LENGTH_SHORT).show()
 
@@ -71,12 +67,14 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        findpw.setOnClickListener {
+            val intent = Intent(this, FindPasswordActivity::class.java)
+            startActivity(intent)
+        }
+
         signup.setOnClickListener{
             val intent = Intent(this, SignupActivity::class.java)
             startActivity(intent)
         }
-
-
-
     }
 }
