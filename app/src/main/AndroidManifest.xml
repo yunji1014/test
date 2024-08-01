@@ -30,6 +30,14 @@
         <activity
             android:name=".HomeActivity"
             android:exported="false" />
+
+        <activity
+            android:name=".activities.BookMemoActivity"
+            android:exported="true" />
+        <activity android:name=".activities.MemoDetailActivity" />
+
+
+
         <activity
             android:name=".SignupActivity"
             android:exported="false" />
