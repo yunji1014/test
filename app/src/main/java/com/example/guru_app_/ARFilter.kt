@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 class ARFilter : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_ar_filter)
 
         val toInstagramButton: Button = findViewById(R.id.to_instagram)
         toInstagramButton.setOnClickListener {
