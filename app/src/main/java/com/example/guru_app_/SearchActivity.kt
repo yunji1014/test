@@ -10,15 +10,18 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.guru_app_.database.BookDatabaseHelper
+import com.example.guru_app_.adapters.BookAdapter
+import com.example.guru_app_.database.BookDao
+import com.example.guru_app_.models.Book
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.InputStreamReader
-import java.lang.Exception
 import java.net.HttpURLConnection
 import java.net.URL
 import java.net.URLEncoder
+import java.text.SimpleDateFormat
+import java.util.*
 
 class SearchActivity : AppCompatActivity() {
 
@@ -27,22 +30,22 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var bookAdapter: BookAdapter
     private lateinit var search: SearchView
     private val books = mutableListOf<Book>()
-    private lateinit var dbHelper: BookDatabaseHelper // BookDatabaseHelper 추가
+    private lateinit var bookDao: BookDao // BookDao 추가
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
 
-        // BookDatabaseHelper 초기화
-        dbHelper = BookDatabaseHelper(this)
+        // BookDao 초기화
+        bookDao = BookDao(this)
 
         backButton = findViewById(R.id.BackButton)
         search = findViewById(R.id.search)
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        // BookAdapter 초기화 시 Context, books, dbHelper 전달
-        bookAdapter = BookAdapter(this, books, dbHelper)
+        // BookAdapter 초기화 시 Context, books, bookDao 전달
+        bookAdapter = BookAdapter(this, books, bookDao)
         recyclerView.adapter = bookAdapter
 
         backButton.setOnClickListener {
@@ -94,7 +97,6 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun getNaverBookSearch(keyword: String): String {
-        // 네이버 책 검색 API를 호출하는 코드
         val clientID = "qIL4TXtqeLNoiACa14G5"
         val clientSecret = "hPPiIzBqS3"
         val sb = StringBuilder()
@@ -137,21 +139,19 @@ class SearchActivity : AppCompatActivity() {
                 for (i in 0 until items.length()) {
                     val item = items.optJSONObject(i)
                     if (item != null) {
-                        val id = item.optInt("id")
                         val title = item.optString("title", "제목 없음")
                         val author = item.optString("author", "저자 없음")
                         val image = item.optString("image", "")
                         val isbn = item.optString("isbn", "ISBN 없음")
                         val publisher = item.optString("publisher", "출판사 없음")
-                        val category = getCategoryFromIsbn(isbn)
 
                         books.add(Book(
-                            title,
-                            author,
-                            image,
-                            isbn,
-                            publisher,
-                            category
+                            title = title,
+                            author = author,
+                            coverImage = image,
+                            isbn = isbn,
+                            publisher = publisher,
+                            // coverImage 필드 추가
                         ))
                     }
                 }
@@ -163,29 +163,6 @@ class SearchActivity : AppCompatActivity() {
         } catch (e: JSONException) {
             e.printStackTrace()
             Toast.makeText(this, "JSON 파싱 중 오류가 발생했습니다: ${e.message}", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    private fun getCategoryFromIsbn(isbn: String): String {
-        return try {
-            //isbn 뒤에서 3번째 숫자.
-            val thirdLastChar = isbn[isbn.length - 3]
-            when (thirdLastChar) {
-                //카테고리 분류
-                '0' -> "총류"
-                '1' -> "철학, 심리학, 윤리학"
-                '2' -> "종교"
-                '3' -> "사회과학"
-                '4' -> "자연과학"
-                '5' -> "기술과학"
-                '6' -> "예술"
-                '7' -> "언어"
-                '8' -> "문학"
-                '9' -> "역사, 지리, 관광"
-                else -> "기타"
-            }
-        } catch (e: Exception) {
-            "기타"
         }
     }
 }

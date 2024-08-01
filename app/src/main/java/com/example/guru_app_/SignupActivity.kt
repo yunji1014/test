@@ -16,6 +16,7 @@ import java.util.regex.Pattern
 import javax.security.auth.callback.PasswordCallback
 
 class SignupActivity : AppCompatActivity() {
+    /*
     lateinit var dbHelper: DBHelper
     lateinit var back: TextView
     lateinit var idcheckbtn: AppCompatButton
@@ -164,4 +165,6 @@ class SignupActivity : AppCompatActivity() {
             }
         }
     }
+
+     */
 }
