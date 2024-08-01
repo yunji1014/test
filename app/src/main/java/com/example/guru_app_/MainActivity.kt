@@ -14,10 +14,10 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
 class MainActivity : AppCompatActivity() {
-    //lateinit var dbHelper: DBHelper
+    lateinit var dbHelper: DBHelper
     lateinit var mail: EditText
     lateinit var password: EditText
-    lateinit var Login: Button
+    lateinit var btnlogin: Button
     lateinit var findpw: TextView
     lateinit var signup: TextView
 
@@ -32,15 +32,6 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
-        Login = findViewById<Button>(R.id.Login)
-
-        Login.setOnClickListener{
-            val intent = Intent(this, HomeActivity::class.java)
-            startActivity(intent)
-        }
-        /*
-
 
         dbHelper = DBHelper(this)
 
@@ -61,8 +52,8 @@ class MainActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT).show()
             }
             else{
-                val checkmailpass = dbHelper.checkMailpass(mail, pass)
-                if (checkmailpass == true){
+                val check = dbHelper.checkMailpass(mail, pass)
+                if (check == true){
                     Toast.makeText(this@MainActivity,
                         "로그인 되었습니다.", Toast.LENGTH_SHORT).show()
 
@@ -76,12 +67,14 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        findpw.setOnClickListener {
+            val intent = Intent(this, FindPasswordActivity::class.java)
+            startActivity(intent)
+        }
+
         signup.setOnClickListener{
             val intent = Intent(this, SignupActivity::class.java)
             startActivity(intent)
         }
-
-         */
-
     }
 }
