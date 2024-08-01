@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".BookShelfActivity">
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.002"
+        app:tabIndicatorColor="@color/blue_500"
+        app:tabIndicatorFullWidth="true"
+        app:tabSelectedTextColor="@color/blue_500"
+        app:tabTextColor="@color/blue_200">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/reading_tab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/reading" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/complete_tab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/complete" />
+
+    </com.google.android.material.tabs.TabLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toBottomOf="@+id/tab_layout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- 검색 결과를 표시할 RecyclerView -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="8dp"
+            tools:listitem="@layout/item_book_image"
+            tools:ignore="MissingConstraints">
+
+        </androidx.recyclerview.widget.RecyclerView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
