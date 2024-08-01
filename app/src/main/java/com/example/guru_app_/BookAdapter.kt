@@ -7,13 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.SearchView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 //import com.example.guru_app_.database.BookDatabaseHelper
 
 
 class BookAdapter(private val context: Context, private val books: List<Book>, private val dbHelper: BookDatabaseHelper) : RecyclerView.Adapter<BookAdapter.BookViewHolder>() {
+    //private lateinit var bookImage: ImageView
 
     // BookViewHolder 클래스는 각각의 아이템 뷰를 보유하며, 뷰의 각 구성 요소를 초기화
     class BookViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -23,6 +26,7 @@ class BookAdapter(private val context: Context, private val books: List<Book>, p
         val bookISBN: TextView = view.findViewById(R.id.bookISBN)
         val bookPublisher: TextView = view.findViewById(R.id.bookPublisher)
         val addBookButton: Button = view.findViewById(R.id.AddBookButton) // AddBookButton 추가
+
     }
 
     // onCreateViewHolder 메서드는 새로운 ViewHolder 객체를 생성할 때 호출
@@ -30,6 +34,7 @@ class BookAdapter(private val context: Context, private val books: List<Book>, p
         // item_search_book 레이아웃을 인플레이트하여 새로운 뷰를 생성
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_search_book, parent, false)
         return BookViewHolder(view)
+
     }
 
     // onBindViewHolder 메서드는 ViewHolder와 데이터를 바인딩할 때 호출
@@ -39,6 +44,7 @@ class BookAdapter(private val context: Context, private val books: List<Book>, p
         holder.bookAuthor.text = book.author
         holder.bookISBN.text = "ISBN: ${book.isbn}"
         holder.bookPublisher.text = "출판사: ${book.publisher}"
+
 
         // 책 이미지가 있을 경우 이미지를 설정
         if (book.image.isNotEmpty()) {
@@ -50,7 +56,10 @@ class BookAdapter(private val context: Context, private val books: List<Book>, p
 
         // AddBookButton 클릭 리스너 설정
         holder.addBookButton.setOnClickListener {
-            dbHelper.addBook(book)  // 책 데이터를 데이터베이스에 저장
+            Toast.makeText(context, "Status: ${book.status}", Toast.LENGTH_SHORT).show()
+            // book 객체의 status 값을 "reading"으로 설정
+            val updatedBook = book.copy(status = "endreading")
+            dbHelper.addBook(updatedBook)  // 책 데이터를 데이터베이스에 저장
 
             // BookShelf 시작하여 책 목록을 표시
             val intent = Intent(context, BookShelfActivity::class.java)

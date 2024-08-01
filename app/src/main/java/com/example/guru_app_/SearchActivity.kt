@@ -143,6 +143,7 @@ class SearchActivity : AppCompatActivity() {
                         val image = item.optString("image", "")
                         val isbn = item.optString("isbn", "ISBN 없음")
                         val publisher = item.optString("publisher", "출판사 없음")
+                        val status = item.optString("status", "상태값 없음")
 
                         //음 데이터를 추가하며 이가 제대로 된 데이터 값이 받아와지지
                         //않는 현상 발생. 그러나 오류가 없으려면 데이터 값을 받아와야 함..
@@ -153,7 +154,8 @@ class SearchActivity : AppCompatActivity() {
                             author,
                             image,
                             isbn,
-                            publisher
+                            publisher,
+                            status
                         ))
                     }
                 }

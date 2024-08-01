@@ -8,75 +8,78 @@ import android.database.sqlite.SQLiteOpenHelper
 
 class BookDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
-    // companion object는 상수 정의 및 정적 메서드를 포함하는 객체
     companion object {
-        private const val DATABASE_NAME = "books.db" // 데이터베이스 이름
+        private const val DATABASE_NAME = "booklog.db"
         private const val DATABASE_VERSION = 1
-        private const val TABLE_BOOKS = "books" //테이블 이름
-        private const val COLUMN_BOOK_ID = "id"
-        private const val COLUMN_TITLE = "title"
-        private const val COLUMN_AUTHOR = "author"
-        private const val COLUMN_IMAGE = "image"
-        private const val COLUMN_ISBN = "isbn"
-        private const val COLUMN_PUBLISHER = "publisher"
-        private const val COLUMN_START = "start_date"
-        private const val COLUMN_END = "end_date"
-        private const val COLUMN_RATING = "rating"
-        private const val COLUMN_STATUS = "status"
-
-        private const val TABLE_MEMOS = "memos"
-        private const val COLUMN_MEMO_ID = "id"
-        private const val COLUMN_BOOK_ID_FK = "book_id"
-        private const val COLUMN_MEMO_TITLE = "title"
-        private const val COLUMN_CONTENT = "content"
-        private const val COLUMN_PAGE = "page"
-        private const val COLUMN_IMAGE_PATH = "image_path"
-        private const val COLUMN_CREATED_AT = "created_at"
-        private const val COLUMN_UPDATED_AT = "updated_at"
-
         private const val CREATE_BOOKS_TABLE = """
-            CREATE TABLE $TABLE_BOOKS (
-                $COLUMN_BOOK_ID INTEGER,
-                $COLUMN_TITLE TEXT,
-                $COLUMN_AUTHOR TEXT,
-                $COLUMN_IMAGE TEXT,
-                $COLUMN_ISBN TEXT,
-                $COLUMN_PUBLISHER TEXT,
-                $COLUMN_START TEXT,
-                $COLUMN_END TEXT,
-                $COLUMN_RATING REAL,
-                $COLUMN_STATUS TEXT NOT NULL DEFAULT 'reading'
+            CREATE TABLE books (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                title TEXT NOT NULL,
+                author TEXT NOT NULL,
+                publisher TEXT,
+                isbn TEXT NOT NULL UNIQUE,
+                cover_image TEXT,
+                start_date TEXT,
+                end_date TEXT,
+                rating REAL,
+                status TEXT NOT NULL DEFAULT 'reading'
             );
         """
 
         private const val CREATE_MEMOS_TABLE = """
-            CREATE TABLE $TABLE_MEMOS (
-                $COLUMN_MEMO_ID INTEGER PRIMARY KEY AUTOINCREMENT,
-                $COLUMN_BOOK_ID_FK INTEGER NOT NULL,
-                $COLUMN_MEMO_TITLE TEXT,
-                $COLUMN_CONTENT TEXT,
-                $COLUMN_PAGE INTEGER,
-                $COLUMN_IMAGE_PATH TEXT,
-                $COLUMN_CREATED_AT TEXT,
-                $COLUMN_UPDATED_AT TEXT,
-                FOREIGN KEY ($COLUMN_BOOK_ID_FK) REFERENCES $TABLE_BOOKS($COLUMN_BOOK_ID) ON DELETE CASCADE
+            CREATE TABLE memos (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                book_id INTEGER NOT NULL,
+                title TEXT,
+                content TEXT,
+                page INTEGER,
+                image_path TEXT,
+                created_at TEXT,
+                updated_at TEXT,
+                FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE CASCADE
             );
         """
 
+        private const val CREATE_STATISTICS_TABLE = """
+            CREATE TABLE IF NOT EXISTS Statistics (
+                user_id TEXT NOT NULL,
+                month TEXT NOT NULL,
+                books_read INTEGER DEFAULT 0,
+                genre_stats TEXT,
+                FOREIGN KEY (user_id) REFERENCES users(user_id),
+                PRIMARY KEY (user_id, month)
+            );
+        """
+
+        // books 테이블 컬럼 상수
+        private const val TABLE_BOOKS = "books"
+        private const val COLUMN_TITLE = "title"
+        private const val COLUMN_AUTHOR = "author"
+        private const val COLUMN_IMAGE = "cover_image"
+        private const val COLUMN_ISBN = "isbn"
+        private const val COLUMN_PUBLISHER = "publisher"
+        private const val COLUMN_STATUS = "status"
+
     }
+
+
 
     // onCreate 메서드는 데이터베이스가 처음 생성될 때 호출
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL(CREATE_BOOKS_TABLE)
         db.execSQL(CREATE_MEMOS_TABLE)
+        db.execSQL(CREATE_STATISTICS_TABLE)
     }
 
-    // onUpgrade 메서드는 데이터베이스가 업그레이드될 때 호출
+
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-        db.execSQL("DROP TABLE IF EXISTS $TABLE_MEMOS")
-        db.execSQL("DROP TABLE IF EXISTS $TABLE_BOOKS")
+        // 업그레이드 정책에 따라 필요한 경우에 데이터베이스 테이블 재구성
+        db.execSQL("DROP TABLE IF EXISTS memos")
+        db.execSQL("DROP TABLE IF EXISTS books")
+        db.execSQL("DROP TABLE IF EXISTS Statistics")
         onCreate(db)
     }
+
 
     // addBook 메서드는 새로운 책 데이터를 데이터베이스에 추가
     fun addBook(book: Book) {
@@ -87,8 +90,9 @@ class BookDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_
         contentValues.put(COLUMN_IMAGE, book.image)
         contentValues.put(COLUMN_ISBN, book.isbn)
         contentValues.put(COLUMN_PUBLISHER, book.publisher)
+        contentValues.put(COLUMN_STATUS, book.status)
 
-        db.insert(TABLE_BOOKS, null, contentValues) // 데이터베이스에 데이터 삽입
+        db.insert("books", null, contentValues) // 데이터베이스에 데이터 삽입
         db.close() // 데이터베이스 닫기
     }
 
@@ -110,7 +114,8 @@ class BookDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_
                     cursor.getString(cursor.getColumnIndex(COLUMN_AUTHOR)),
                     cursor.getString(cursor.getColumnIndex(COLUMN_IMAGE)),
                     cursor.getString(cursor.getColumnIndex(COLUMN_ISBN)),
-                    cursor.getString(cursor.getColumnIndex(COLUMN_PUBLISHER))
+                    cursor.getString(cursor.getColumnIndex(COLUMN_PUBLISHER)),
+                    cursor.getString(cursor.getColumnIndex(COLUMN_STATUS))
                 )
                 bookList.add(book) // 리스트에 책 추가
             } while (cursor.moveToNext())
@@ -120,4 +125,6 @@ class BookDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_
 
         return bookList
     }
+
+
 }

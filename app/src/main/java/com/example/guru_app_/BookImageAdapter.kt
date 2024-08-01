@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
@@ -36,9 +37,12 @@ class BookImageAdapter(private val context: Context, private val books: List<Boo
 
         // 이미지 버튼 클릭 시 동작 설정
         holder.bookImageButton.setOnClickListener {
-            // 이미지 버튼 클릭 시 동작 설정
-            val intent = Intent(context, HomeActivity::class.java) // HomeActivity로 전환하는 인텐트 생성
-            context.startActivity(intent) // 액티비티 시작
+            // Toast 메시지로 해당 책의 status 값을 출력
+            Toast.makeText(context, "Status: ${book.status}", Toast.LENGTH_SHORT).show()
+
+            // HomeActivity로 전환하는 인텐트 생성
+            val intent = Intent(context, HomeActivity::class.java)
+            context.startActivity(intent)
         }
     }
 
