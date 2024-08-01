@@ -36,6 +36,13 @@
             android:exported="true" />
         <activity android:name=".activities.MemoDetailActivity" />
 
+        <activity
+            android:name=".ARFilter"
+            android:exported="true" />
+
+
+
+
 
 
         <activity
