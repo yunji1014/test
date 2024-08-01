@@ -14,10 +14,10 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
 class MainActivity : AppCompatActivity() {
-    //lateinit var dbHelper: DBHelper
+    lateinit var dbHelper: DBHelper
     lateinit var mail: EditText
     lateinit var password: EditText
-    lateinit var Login: Button
+    lateinit var btnlogin: Button
     lateinit var findpw: TextView
     lateinit var signup: TextView
 
@@ -33,13 +33,8 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        Login = findViewById<Button>(R.id.Login)
 
-        Login.setOnClickListener{
-            val intent = Intent(this, HomeActivity::class.java)
-            startActivity(intent)
-        }
-        /*
+
 
 
         dbHelper = DBHelper(this)
@@ -81,7 +76,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-         */
+
 
     }
 }

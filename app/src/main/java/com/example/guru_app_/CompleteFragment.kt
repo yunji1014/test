@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-
+import com.example.guru_app_.database.BookDao
 
 class CompleteFragment : Fragment() {
     private lateinit var bookImageAdapter: BookImageAdapter
@@ -23,13 +23,13 @@ class CompleteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val bookDao = BookDao(requireContext())
 
         recyclerView = view.findViewById(R.id.recyclerView)
-        val gridLayoutManager = GridLayoutManager(context, 3) // 두 번째 인자는 열의 수
+        val gridLayoutManager = GridLayoutManager(context, 3) // 열의 수
         recyclerView.layoutManager = gridLayoutManager
 
-        bookDatabaseHelper = BookDatabaseHelper(requireContext())
-        val books = bookDatabaseHelper.getAllBooks().filter { it.status == "endreading" }
+        val books = bookDao.getAllBooks().filter { it.status == "endreading" }
 
         bookImageAdapter = BookImageAdapter(requireContext(), books)
         recyclerView.adapter = bookImageAdapter
