@@ -47,11 +47,11 @@ class BookMemoActivity : AppCompatActivity(), MemoListFragment.MemoItemClickList
         if (savedInstanceState == null) {
             if (isCompleted) {
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.book_detail_fragment_container, CompletedBookDetailFragment())
+                    .replace(R.id.book_detail_fragment_container, CompletedBookDetailFragment.newInstance(bookId))
                     .commit()
             } else {
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.book_detail_fragment_container, ReadingBookDetailFragment())
+                    .replace(R.id.book_detail_fragment_container, ReadingBookDetailFragment.newInstance(bookId))
                     .commit()
             }
 
@@ -67,12 +67,8 @@ class BookMemoActivity : AppCompatActivity(), MemoListFragment.MemoItemClickList
             memoDetailLauncher.launch(intent)
         }
 
-        // Move the code to set the complete button click listener after fragment is loaded
-        supportFragmentManager.addOnBackStackChangedListener {
-            val fragment = supportFragmentManager.findFragmentById(R.id.book_detail_fragment_container)
-            fragment?.view?.findViewById<Button>(R.id.complete_button)?.setOnClickListener {
-                showRatingDialog()
-            }
+        findViewById<Button>(R.id.complete_button).setOnClickListener {
+            showRatingDialog()
         }
     }
 
@@ -95,7 +91,7 @@ class BookMemoActivity : AppCompatActivity(), MemoListFragment.MemoItemClickList
                 bookDao.updateBookRating(bookId, rating)
                 bookDao.updateBookStatus(bookId, "completed")
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.book_detail_fragment_container, CompletedBookDetailFragment())
+                    .replace(R.id.book_detail_fragment_container, CompletedBookDetailFragment.newInstance(bookId))
                     .commit()
             }
             .setNegativeButton("Cancel", null)

@@ -33,10 +33,14 @@ class BookDao(context: Context) {
         val db = dbHelper.writableDatabase
         val values = ContentValues().apply {
             put("status", status)
+            if (status == "completed") {
+                put("end_date", getCurrentDate()) // 상태가 "completed"일 경우 end_date를 현재 날짜로 설정
+            }
         }
         db.update("books", values, "id=?", arrayOf(bookId.toString()))
         db.close()
     }
+
     fun updateBookRating(bookId: Int, rating: Float) {
         val db = dbHelper.writableDatabase
         val values = ContentValues().apply {
@@ -46,7 +50,33 @@ class BookDao(context: Context) {
         db.close()
     }
 
-
+    fun getBookById(bookId: Int): Book? {
+        val db = dbHelper.readableDatabase
+        val cursor = db.query(
+            "books", null, "id=?", arrayOf(bookId.toString()),
+            null, null, null
+        )
+        var book: Book? = null
+        with(cursor) {
+            if (moveToFirst()) {
+                book = Book(
+                    getInt(getColumnIndexOrThrow("id")),
+                    getString(getColumnIndexOrThrow("title")),
+                    getString(getColumnIndexOrThrow("author")),
+                    getString(getColumnIndexOrThrow("publisher")),
+                    getString(getColumnIndexOrThrow("isbn")),
+                    getString(getColumnIndexOrThrow("cover_image")),
+                    getString(getColumnIndexOrThrow("start_date")),
+                    getString(getColumnIndexOrThrow("end_date")),
+                    getFloat(getColumnIndexOrThrow("rating")),
+                    getString(getColumnIndexOrThrow("status"))
+                )
+            }
+        }
+        cursor.close()
+        db.close()
+        return book
+    }
 
     fun getAllBooks(): List<Book> {
         val db = dbHelper.readableDatabase
