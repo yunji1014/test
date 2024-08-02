@@ -27,6 +27,25 @@ class BookDao(context: Context) {
         db.close()
     }
 
+    fun updateBookStatus(bookId: Int, status: String) {
+        val db = dbHelper.writableDatabase
+        val values = ContentValues().apply {
+            put("status", status)
+        }
+        db.update("books", values, "id=?", arrayOf(bookId.toString()))
+        db.close()
+    }
+    fun updateBookRating(bookId: Int, rating: Float) {
+        val db = dbHelper.writableDatabase
+        val values = ContentValues().apply {
+            put("rating", rating)
+        }
+        db.update("books", values, "id=?", arrayOf(bookId.toString()))
+        db.close()
+    }
+
+
+
     fun getAllBooks(): List<Book> {
         val db = dbHelper.readableDatabase
         val cursor = db.query("books", null, null, null, null, null, null)
