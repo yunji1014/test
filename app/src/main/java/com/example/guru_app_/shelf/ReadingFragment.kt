@@ -1,4 +1,4 @@
-package com.example.guru_app_
+package com.example.guru_app_.shelf
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.guru_app_.R
 import com.example.guru_app_.database.BookDao
 
 class ReadingFragment : Fragment() {
