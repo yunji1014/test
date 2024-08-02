@@ -50,9 +50,14 @@ class BookMemoActivity : AppCompatActivity(), MemoListFragment.MemoItemClickList
                     .replace(R.id.book_detail_fragment_container, CompletedBookDetailFragment.newInstance(bookId))
                     .commit()
             } else {
+                val readingBookDetailFragment = ReadingBookDetailFragment.newInstance(bookId)
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.book_detail_fragment_container, ReadingBookDetailFragment.newInstance(bookId))
+                    .replace(R.id.book_detail_fragment_container, readingBookDetailFragment)
                     .commit()
+
+                readingBookDetailFragment.setCompleteButtonClickListener {
+                    showRatingDialog()
+                }
             }
 
             supportFragmentManager.beginTransaction()
@@ -65,10 +70,6 @@ class BookMemoActivity : AppCompatActivity(), MemoListFragment.MemoItemClickList
             intent.putExtra("MEMO_ID", -1)
             intent.putExtra("BOOK_ID", bookId)
             memoDetailLauncher.launch(intent)
-        }
-
-        findViewById<Button>(R.id.complete_button).setOnClickListener {
-            showRatingDialog()
         }
     }
 
@@ -100,3 +101,4 @@ class BookMemoActivity : AppCompatActivity(), MemoListFragment.MemoItemClickList
         dialog.show()
     }
 }
+
