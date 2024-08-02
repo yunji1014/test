@@ -21,7 +21,7 @@ import com.example.guru_app_.activities.BookMemoActivity
 import com.example.guru_app_.database.BookDao
 import com.example.guru_app_.models.Book
 
-class BookImageAdapter(private val context: Context, private var books: List<Book>) : RecyclerView.Adapter<BookImageAdapter.BookImageViewHolder>() {
+class BookImageAdapter(private val context: Context, private var books: List<Book>, private val bookDao: BookDao) : RecyclerView.Adapter<BookImageAdapter.BookImageViewHolder>() {
 
     class BookImageViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val bookImageButton: ImageButton = view.findViewById(R.id.bookImageButton)

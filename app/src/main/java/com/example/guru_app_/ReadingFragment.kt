@@ -33,7 +33,7 @@ class ReadingFragment : Fragment() {
 
         val books = bookDao.getAllBooks().filter { it.status == "reading" }
 
-        bookImageAdapter = BookImageAdapter(requireContext(), books)
+        bookImageAdapter = BookImageAdapter(requireContext(), books, bookDao)
         recyclerView.adapter = bookImageAdapter
     }
 
@@ -54,3 +54,4 @@ class ReadingFragment : Fragment() {
         loadBooks()
     }
 }
+

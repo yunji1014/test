@@ -1,17 +1,19 @@
 package com.example.guru_app_
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.guru_app_.database.BookDao
 
 class CompleteFragment : Fragment() {
     private lateinit var bookImageAdapter: BookImageAdapter
-    private lateinit var bookDatabaseHelper: BookDatabaseHelper
     private lateinit var recyclerView: RecyclerView
 
     override fun onCreateView(
@@ -31,7 +33,24 @@ class CompleteFragment : Fragment() {
 
         val books = bookDao.getAllBooks().filter { it.status == "endreading" }
 
-        bookImageAdapter = BookImageAdapter(requireContext(), books)
+        bookImageAdapter = BookImageAdapter(requireContext(), books, bookDao)
         recyclerView.adapter = bookImageAdapter
+    }
+
+    @SuppressLint("DetachAndAttachSameFragment")
+    fun refreshFragment(fragment: Fragment, fragmentManager: FragmentManager) {
+        val ft: FragmentTransaction = fragmentManager.beginTransaction()
+        ft.detach(fragment).attach(fragment).commit()
+    }
+
+    private fun loadBooks() {
+        val bookDao = BookDao(requireContext())
+        val books = bookDao.getAllBooks() // 예시로 모든 책을 불러오는 메서드
+        bookImageAdapter.updateBooks(books)
+    }
+
+    // 데이터 갱신 메서드
+    fun refreshBooks() {
+        loadBooks()
     }
 }
