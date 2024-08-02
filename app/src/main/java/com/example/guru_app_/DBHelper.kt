@@ -36,11 +36,37 @@ class DBHelper (context: Context) : SQLiteOpenHelper(context, "LoginDB", null, 1
         return res
     }
 
+    //mail 중복 확인. id가 존재하면 true
+    fun checkMail(mail: String?): Boolean{
+        val db = this.readableDatabase
+        var res = true
+        val cursor = db.rawQuery("Select * from users where mail =?", arrayOf(mail))
+        if(cursor.count <= 0) res = false
+        return res
+    }
+
+    //회원정보(메일, 비밀번호) 검색. 일치하는 정보 있으면 true
     fun checkMailpass(mail: String?, password: String?) : Boolean{
         val db = this.readableDatabase
         var res = true
         val cursor = db.rawQuery("Select * from users where mail = ? and password = ?", arrayOf(mail, password))
         if(cursor.count <= 0) res = false
         return res
+    }
+
+    //비밀번호 재설정
+    fun resetPassword(mail: String?, password: String?): Boolean {
+        val db = this.writableDatabase
+        val stmt = db.compileStatement("UPDATE users SET password=? WHERE mail=?")
+        stmt.bindString(1, password)
+        stmt.bindString(2, mail)
+
+        return try {
+            val rowsAffected = stmt.executeUpdateDelete()
+            rowsAffected > 0 // 업데이트된 행이 있는 경우 true를 반환
+        } catch (e: Exception) {
+            e.printStackTrace()
+            false
+        }
     }
 }

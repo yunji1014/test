@@ -11,4 +11,6 @@
     <color name="colorRatingBar">#BDBDBD</color>
     <color name="colorRatingBarActivated">#FFC107</color>
     <color name="colorRatingBarHighlight">#FFEB3B</color>
+    <color name="colorInactive">#9BC7EC</color>
+    <color name="colorActive">#196191</color>
 </resources>
