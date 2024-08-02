@@ -51,7 +51,6 @@
             android:orientation="vertical"
             android:padding="8dp"
             tools:listitem="@layout/item_search_book">
-
         </androidx.recyclerview.widget.RecyclerView>
 
     </LinearLayout>
