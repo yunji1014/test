@@ -4,7 +4,6 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.RatingBar
 import androidx.activity.result.contract.ActivityResultContracts
@@ -47,11 +46,15 @@ class BookMemoActivity : AppCompatActivity(), MemoListFragment.MemoItemClickList
         if (savedInstanceState == null) {
             if (isCompleted) {
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.book_detail_fragment_container, CompletedBookDetailFragment())
+                    .replace(R.id.book_detail_fragment_container, CompletedBookDetailFragment.newInstance(bookId))
                     .commit()
             } else {
+                val readingFragment = ReadingBookDetailFragment.newInstance(bookId)
+                readingFragment.setCompleteButtonClickListener {
+                    showRatingDialog()
+                }
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.book_detail_fragment_container, ReadingBookDetailFragment())
+                    .replace(R.id.book_detail_fragment_container, readingFragment)
                     .commit()
             }
 
@@ -65,14 +68,6 @@ class BookMemoActivity : AppCompatActivity(), MemoListFragment.MemoItemClickList
             intent.putExtra("MEMO_ID", -1)
             intent.putExtra("BOOK_ID", bookId)
             memoDetailLauncher.launch(intent)
-        }
-
-        // Move the code to set the complete button click listener after fragment is loaded
-        supportFragmentManager.addOnBackStackChangedListener {
-            val fragment = supportFragmentManager.findFragmentById(R.id.book_detail_fragment_container)
-            fragment?.view?.findViewById<Button>(R.id.complete_button)?.setOnClickListener {
-                showRatingDialog()
-            }
         }
     }
 
@@ -95,7 +90,7 @@ class BookMemoActivity : AppCompatActivity(), MemoListFragment.MemoItemClickList
                 bookDao.updateBookRating(bookId, rating)
                 bookDao.updateBookStatus(bookId, "completed")
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.book_detail_fragment_container, CompletedBookDetailFragment())
+                    .replace(R.id.book_detail_fragment_container, CompletedBookDetailFragment.newInstance(bookId))
                     .commit()
             }
             .setNegativeButton("Cancel", null)
