@@ -34,11 +34,16 @@ class BookDao(context: Context) {
         val values = ContentValues().apply {
             put("status", status)
             if (status == "completed") {
-                put("end_date", getCurrentDate()) // 상태가 "completed"일 경우 end_date를 현재 날짜로 설정
+                put("end_date", getCurrentDate())
             }
         }
-        db.update("books", values, "id=?", arrayOf(bookId.toString()))
-        db.close()
+        try {
+            db.update("books", values, "id=?", arrayOf(bookId.toString()))
+        } catch (e: Exception) {
+            e.printStackTrace()
+        } finally {
+            db.close()
+        }
     }
 
     fun updateBookRating(bookId: Int, rating: Float) {
@@ -46,37 +51,46 @@ class BookDao(context: Context) {
         val values = ContentValues().apply {
             put("rating", rating)
         }
-        db.update("books", values, "id=?", arrayOf(bookId.toString()))
-        db.close()
+        try {
+            db.update("books", values, "id=?", arrayOf(bookId.toString()))
+        } catch (e: Exception) {
+            e.printStackTrace()
+        } finally {
+            db.close()
+        }
     }
 
     fun getBookById(bookId: Int): Book? {
         val db = dbHelper.readableDatabase
+        var book: Book? = null
         val cursor = db.query(
             "books", null, "id=?", arrayOf(bookId.toString()),
             null, null, null
         )
-        var book: Book? = null
-        with(cursor) {
-            if (moveToFirst()) {
+        try {
+            if (cursor.moveToFirst()) {
                 book = Book(
-                    getInt(getColumnIndexOrThrow("id")),
-                    getString(getColumnIndexOrThrow("title")),
-                    getString(getColumnIndexOrThrow("author")),
-                    getString(getColumnIndexOrThrow("publisher")),
-                    getString(getColumnIndexOrThrow("isbn")),
-                    getString(getColumnIndexOrThrow("cover_image")),
-                    getString(getColumnIndexOrThrow("start_date")),
-                    getString(getColumnIndexOrThrow("end_date")),
-                    getFloat(getColumnIndexOrThrow("rating")),
-                    getString(getColumnIndexOrThrow("status"))
+                    cursor.getInt(cursor.getColumnIndexOrThrow("id")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("title")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("author")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("publisher")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("isbn")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("cover_image")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("start_date")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("end_date")),
+                    cursor.getFloat(cursor.getColumnIndexOrThrow("rating")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("status"))
                 )
             }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        } finally {
+            cursor.close()
+            db.close()
         }
-        cursor.close()
-        db.close()
         return book
     }
+
 
     fun getAllBooks(): List<Book> {
         val db = dbHelper.readableDatabase
@@ -110,10 +124,12 @@ class BookDao(context: Context) {
         db.close()
     }
 
-    private fun getCurrentDate(): String {
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-        val date = Date()
-        return dateFormat.format(date)
+    companion object {
+        fun getCurrentDate(): String {
+            val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+            val date = Date()
+            return dateFormat.format(date)
+        }
     }
 
     private fun getNextId(): Int {

@@ -4,7 +4,6 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.RatingBar
 import androidx.activity.result.contract.ActivityResultContracts
@@ -50,14 +49,13 @@ class BookMemoActivity : AppCompatActivity(), MemoListFragment.MemoItemClickList
                     .replace(R.id.book_detail_fragment_container, CompletedBookDetailFragment.newInstance(bookId))
                     .commit()
             } else {
-                val readingBookDetailFragment = ReadingBookDetailFragment.newInstance(bookId)
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.book_detail_fragment_container, readingBookDetailFragment)
-                    .commit()
-
-                readingBookDetailFragment.setCompleteButtonClickListener {
+                val readingFragment = ReadingBookDetailFragment.newInstance(bookId)
+                readingFragment.setCompleteButtonClickListener {
                     showRatingDialog()
                 }
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.book_detail_fragment_container, readingFragment)
+                    .commit()
             }
 
             supportFragmentManager.beginTransaction()
@@ -101,4 +99,3 @@ class BookMemoActivity : AppCompatActivity(), MemoListFragment.MemoItemClickList
         dialog.show()
     }
 }
-
