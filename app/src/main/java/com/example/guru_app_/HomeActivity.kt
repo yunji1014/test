@@ -3,20 +3,21 @@ package com.example.guru_app_
 import android.content.Intent
 import android.os.Bundle
 import android.widget.SearchView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.guru_app_.shelf.BookShelfActivity
 import com.example.guru_app_.database.BookDao
-import android.widget.Toast
 import com.example.guru_app_.popapi.BestsellerResponse
 import com.example.guru_app_.popapi.PopBookAdapter
 import com.example.guru_app_.popapi.RetrofitClient
 import com.example.guru_app_.search.SearchActivity
 import com.example.guru_app_.shelf.BookImageAdapter
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var bookImageAdapter: BookImageAdapter
@@ -29,26 +30,43 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        // BookDao 초기화
         bookDao = BookDao(this)
 
-        // RecyclerView 초기화 및 설정
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
-        // BookImageAdapter 초기화 및 설정
         val books = bookDao.getAllBooks()
         bookImageAdapter = BookImageAdapter(this, books, bookDao)
         recyclerView.adapter = bookImageAdapter
 
-        // popBook RecyclerView 초기화 및 설정
         popBook = findViewById(R.id.PopBook)
         popBook.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-        // Bestseller 목록을 가져와 설정
         fetchBestsellers()
 
-        // SearchView 설정
+        val navView: BottomNavigationView = findViewById(R.id.bottom_navigation)
+        navView.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navigation_home -> {
+                    startActivity(Intent(this, HomeActivity::class.java))
+                    true
+                }
+                R.id.navigation_bookshelf -> {
+                    startActivity(Intent(this, BookShelfActivity::class.java))
+                    true
+                }
+                R.id.navigation_arfilter -> {
+                    startActivity(Intent(this, ARFilter::class.java))
+                    true
+                }
+                R.id.navigation_mypage -> {
+                    startActivity(Intent(this, MyPageActivity::class.java))
+                    true
+                }
+                else -> false
+            }
+        }
+
         val search = findViewById<SearchView>(R.id.search)
         search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -69,7 +87,7 @@ class HomeActivity : AppCompatActivity() {
     private fun fetchBestsellers() {
         val apiKey = "ttb1014jiye1521001"
         val queryType = "Bestseller"
-        val maxResults = 5
+        val maxResults = 10
         val start = 1
         val searchTarget = "Book"
 
