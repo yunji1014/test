@@ -10,7 +10,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.guru_app_.adapters.BookAdapter
 import com.example.guru_app_.database.BookDao
 import com.example.guru_app_.models.Book
 import org.json.JSONException
@@ -20,8 +19,6 @@ import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
 import java.net.URLEncoder
-import java.text.SimpleDateFormat
-import java.util.*
 
 class SearchActivity : AppCompatActivity() {
 
@@ -30,13 +27,12 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var bookAdapter: BookAdapter
     private lateinit var search: SearchView
     private val books = mutableListOf<Book>()
-    private lateinit var bookDao: BookDao // BookDao 추가
+    private lateinit var bookDao: BookDao
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
 
-        // BookDao 초기화
         bookDao = BookDao(this)
 
         backButton = findViewById(R.id.BackButton)
@@ -44,7 +40,6 @@ class SearchActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        // BookAdapter 초기화 시 Context, books, bookDao 전달
         bookAdapter = BookAdapter(this, books, bookDao)
         recyclerView.adapter = bookAdapter
 
@@ -53,7 +48,6 @@ class SearchActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        // SearchView에서 검색 버튼 클릭 이벤트 처리
         search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (query != null && query.isNotBlank()) {
@@ -65,12 +59,10 @@ class SearchActivity : AppCompatActivity() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                // 필요 시 실시간 검색을 위해 사용할 수 있습니다.
                 return false
             }
         })
 
-        // 인텐트에서 검색어를 받아와서 처리
         val query = intent.getStringExtra("query")
         if (query != null) {
             search.setQuery(query, true)
@@ -135,7 +127,7 @@ class SearchActivity : AppCompatActivity() {
             val items = jsonObject.optJSONArray("items")
 
             if (items != null) {
-                books.clear() // 기존 데이터 초기화
+                books.clear()
                 for (i in 0 until items.length()) {
                     val item = items.optJSONObject(i)
                     if (item != null) {
@@ -151,7 +143,7 @@ class SearchActivity : AppCompatActivity() {
                             coverImage = image,
                             isbn = isbn,
                             publisher = publisher,
-                            // coverImage 필드 추가
+                            status = "reading"
                         ))
                     }
                 }

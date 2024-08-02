@@ -4,15 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ReadingFragment">
+    tools:context=".CompleteFragment">
+
     <GridLayout
-        android:id="@+id/books"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bookshelf"
         android:columnCount="3"
         android:orientation="horizontal">
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
@@ -23,8 +22,8 @@
             android:padding="8dp"
             tools:ignore="MissingConstraints"
             tools:listitem="@layout/item_book_image">
-
         </androidx.recyclerview.widget.RecyclerView>
 
     </GridLayout>
+
 </FrameLayout>

@@ -102,6 +102,7 @@ class SignupActivity : AppCompatActivity() {
             val mail = mail.text.toString()
             val birth = birth1 + birth2 + birth3
             val pwPattern = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&.])[A-Za-z[0-9]$@$!%*#?&.]{8,16}$"
+            val mailpattern = android.util.Patterns.EMAIL_ADDRESS;
 
             if(userid == "" || pass == "" || repass == "" || name == "" ||
                 birth1 == "" || birth2 == "" || birth3 == "" || mail == "")
@@ -115,22 +116,33 @@ class SignupActivity : AppCompatActivity() {
                     if (Pattern.matches(pwPattern, pass)) {
                         // 비밀번호 재확인 O
                         if (pass == repass) {
-                            val insert = dbHelper!!.insertData(userid, pass, name, birth, mail)
-                            //가입 성공시 메인화면으로 전환
-                            if (insert == true) {
-                                Toast.makeText(
-                                    this@SignupActivity,
-                                    "회원가입을 축하합니다",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                                val intent = Intent(this, MainActivity::class.java)
-                                startActivity(intent)
+                            //이메일 형식 확인
+                            if(mailpattern.matcher(mail).matches()){
+                                val insert = dbHelper!!.insertData(userid, pass, name, birth, mail)
+                                //가입 성공시 메인화면으로 전환
+                                if (insert == true) {
+                                    Toast.makeText(
+                                        this@SignupActivity,
+                                        "회원가입을 축하합니다",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    val intent = Intent(this, MainActivity::class.java)
+                                    startActivity(intent)
+                                }
+                                //가입 실패
+                                else {
+                                    Toast.makeText(
+                                        this@SignupActivity,
+                                        "회원가입에 실패하였습니다. 다시 시도해주세요.",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
                             }
-                            //가입 실패
+                            //이메일 형식 맞지 않음
                             else {
                                 Toast.makeText(
                                     this@SignupActivity,
-                                    "회원가입에 실패하였습니다. 다시 시도해주세요.",
+                                    "이메일 형식이 올바르지 않습니다.",
                                     Toast.LENGTH_SHORT
                                 ).show()
                             }
@@ -164,5 +176,4 @@ class SignupActivity : AppCompatActivity() {
             }
         }
     }
-
 }
